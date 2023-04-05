@@ -8,6 +8,7 @@ serverAddress = '0.0.0.0'
 
 # Whether to send usage statisics to Streamlit.
 # Default: true
+
 gatherUsageStats = true
 
 
