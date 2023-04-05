@@ -47,3 +47,4 @@ def display_img_gps_location(upload):
     
 if my_upload is not None:
     display_img_gps_location(my_upload)
+
