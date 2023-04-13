@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image, ExifTags
 from config import weather_api_url, weather_api_key, yolo_api_url
 
-# api request to run the model and plot the predict boxes
+# api request to run the model and plot the predicted boxes/classes
 def prediction(api_predict):
     files = {"file": api_predict}
     res = requests.post(url=yolo_api_url, files=files)
@@ -18,40 +18,42 @@ def prediction(api_predict):
 def gps_decimals(gps_degrees):
     direction, (degrees, minutes, seconds) = gps_degrees[0], gps_degrees[1]  # extract the direction and the degrees, minutes, seconds values
     decimals = float(degrees) + float(minutes) / 60 + float(seconds) / 3600  # calculate the decimal degree value
-    if direction in ('S', 'W'):  # check if the direction is south or west and adjust the sign accordingly
+    if direction in ('S', 'W'):  # check if the direction is south or west and adjust the value accordingly
         decimals *= -1
-    
     return decimals
 
+# retrieve gps data from file's exif, return False if not found
 def gps_data(uploaded_photo):
     image = Image.open(uploaded_photo)
     data = dict()
-    exif = image.getexif()  # get the EXIF data from the image
+    exif = image.getexif()  
     if exif:
-        ifd = exif.get_ifd(0x8825)  # retrieve the GPS EXIF data
+        ifd = exif.get_ifd(0x8825)  
         for key, val in ifd.items():
-            data[ExifTags.GPSTAGS[key]] = val  # extract the GPS information from the EXIF data
+            data[ExifTags.GPSTAGS[key]] = val  
     if 'GPSLatitudeRef' in data:
-        gps_coordinates = gps_decimals((data['GPSLatitudeRef'], data['GPSLatitude'])), gps_decimals((data['GPSLongitudeRef'], data['GPSLongitude']))  # convert the GPS coordinates to decimal degrees
+        gps_coordinates = gps_decimals((data['GPSLatitudeRef'], data['GPSLatitude'])), gps_decimals((data['GPSLongitudeRef'], data['GPSLongitude'])) 
         return gps_coordinates
     else:
         return False
-    
+
+# if GPS data is available, create and display a folium map centered on the GPS coordinates, add a marker on the map     
 def gps_map(uploaded_photo):
         if gps_data(uploaded_photo) is not False:
             coordinates = gps_data(uploaded_photo)
-            map = folium.Map(location=coordinates, zoom_start=16)  # create a folium map centered on the GPS coordinates
-            folium.Marker(coordinates, popup="Fire location", tooltip="Fire location").add_to(map)  # add a marker to the map at the GPS coordinates
-            st_folium(map, width=725)  # display the map using the Streamlit-Folium bridge
+            map = folium.Map(location=coordinates, zoom_start=16)  
+            folium.Marker(coordinates, popup="Fire location", tooltip="Fire location").add_to(map)  
+            st_folium(map, width=725)  
         else :
-            st.subheader('No GPS coordinates found on provided picture')
+            st.subheader('No GPS coordinates found on the provided photo')
+            st.text('Please ensure that photo gps location is activated on your device.')
 
+# if GPS data is available, call an openweather api, display information related to the wind
 def weather_info(uploaded_photo):
         if gps_data(uploaded_photo) is not False:
             coordinates = gps_data(uploaded_photo)
             response = requests.get(weather_api_url.format(str(coordinates[0]), str(coordinates[1]), weather_api_key))
             weather_data = json.loads(response.text)
-            st.header('Wind information at GPS point : ')
             if 'speed' in weather_data['wind']:
                 st.subheader('Wind speed : {} km/h.'.format(weather_data['wind']['speed']))
             else:
