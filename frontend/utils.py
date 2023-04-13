@@ -39,32 +39,32 @@ def gps_data(uploaded_photo):
 
 # if GPS data is available, create and display a folium map centered on the GPS coordinates, add a marker on the map     
 def gps_map(uploaded_photo):
-        if gps_data(uploaded_photo) is not False:
-            coordinates = gps_data(uploaded_photo)
-            map = folium.Map(location=coordinates, zoom_start=16)  
-            folium.Marker(coordinates, popup="Fire location", tooltip="Fire location").add_to(map)  
-            st_folium(map, width=725, returned_objects=[])  
-        else :
-            st.subheader('No GPS coordinates found on the provided photo.')
-            st.subheader('Please ensure that your photo gps location is activated on your device.')
+    if gps_data(uploaded_photo) is not False:
+        coordinates = gps_data(uploaded_photo)
+        map = folium.Map(location=coordinates, zoom_start=16)  
+        folium.Marker(coordinates, popup="Fire location", tooltip="Fire location").add_to(map)  
+        st_folium(map, width=725, returned_objects=[])  
+    else :
+        st.subheader('No GPS coordinates found on the provided photo.')
+        st.subheader('Please ensure that your photo gps location is activated on your device.')
 
 # if GPS data is available, call an openweather api, display information related to the wind
 def weather_info(uploaded_photo):
-        if gps_data(uploaded_photo) is not False:
-            coordinates = gps_data(uploaded_photo)
-            response = requests.get(weather_api_url.format(str(coordinates[0]), str(coordinates[1]), weather_api_key))
-            weather_data = json.loads(response.text)
-            if 'speed' in weather_data['wind']:
-                st.subheader('Wind speed : {} km/h.'.format(weather_data['wind']['speed']))
-            else:
-                st.subheader('No wind speed information available')                
-            if 'deg' in weather_data['wind']:
-                st.subheader('Wind direction : {} degrees.'.format(weather_data['wind']['deg']))
-            else:
-                st.subheader('No wind direction information available')
-            if 'gust' in weather_data['wind']:
-                st.subheader('Wind gust : {} km/h.'.format(weather_data['wind']['gust']))
-            else:
-                st.subheader('No wind gust information available')
+    if gps_data(uploaded_photo) is not False:
+        coordinates = gps_data(uploaded_photo)
+        response = requests.get(weather_api_url.format(str(coordinates[0]), str(coordinates[1]), weather_api_key))
+        weather_data = json.loads(response.text)
+        if 'speed' in weather_data['wind']:
+            st.subheader('Wind speed : {} km/h.'.format(weather_data['wind']['speed']))
         else:
-            st.subheader('No weather informations are available.')
+            st.subheader('No wind speed information available')                
+        if 'deg' in weather_data['wind']:
+            st.subheader('Wind direction : {} degrees.'.format(weather_data['wind']['deg']))
+        else:
+            st.subheader('No wind direction information available')
+        if 'gust' in weather_data['wind']:
+            st.subheader('Wind gust : {} km/h.'.format(weather_data['wind']['gust']))
+        else:
+            st.subheader('No wind gust information available')
+    else:
+        st.subheader('No weather informations are available.')
