@@ -3,3 +3,6 @@ frontend/__pycache__/
 frontend/config.py
 backend-fs-project
 frontend-fs-project
+heroku.yml
+config.py
+

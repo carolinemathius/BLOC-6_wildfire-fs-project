@@ -23,7 +23,7 @@ Check out documentation below 👇 for more information on each endpoint.
 tags_metadata = [
     {
         "name": "Introduction Endpoint",
-        "description": "Simple endpoint to try out"
+        "description": "Redirect to documentation"
     },
 
     {
