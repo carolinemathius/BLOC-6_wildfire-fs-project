@@ -9,12 +9,12 @@ if __name__ == '__main__':
     # Create a sidebar on the page and create a select box to choose the detection method
     st.write("<h1 style='text-align: center;'>🔥 Project Wildfire 🔥</h1>", unsafe_allow_html=True)
     st.divider()
-    st.subheader('Welcome to our Wildfire application ! '
+    st.subheader('Welcome to our Wildfire application! '
              'Please upload a picture in our app and test our model. '
              'If there is fire or smoke on your picture, '
              'our model will detect it, give back the GPS coordinates '
              'and give you some information about weather forecast '
-             'to help the emergency services assessing the situation.')
+             'to help the emergency services assess the situation.')
     st.divider()
     st.sidebar.header('Fire detection module') 
     option = st.sidebar.selectbox('Chose your detection method',('File upload', 'Phone camera'))
