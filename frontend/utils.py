@@ -43,10 +43,10 @@ def gps_map(uploaded_photo):
             coordinates = gps_data(uploaded_photo)
             map = folium.Map(location=coordinates, zoom_start=16)  
             folium.Marker(coordinates, popup="Fire location", tooltip="Fire location").add_to(map)  
-            st_folium(map, width=725)  
+            st_folium(map, width=725, returned_objects=[])  
         else :
-            st.subheader('No GPS coordinates found on the provided photo')
-            st.text('Please ensure that photo gps location is activated on your device.')
+            st.subheader('No GPS coordinates found on the provided photo.')
+            st.subheader('Please ensure that your photo gps location is activated on your device.')
 
 # if GPS data is available, call an openweather api, display information related to the wind
 def weather_info(uploaded_photo):
@@ -67,4 +67,4 @@ def weather_info(uploaded_photo):
             else:
                 st.subheader('No wind gust information available')
         else:
-            st.subheader('No weather information available')
+            st.subheader('No weather informations are available.')
