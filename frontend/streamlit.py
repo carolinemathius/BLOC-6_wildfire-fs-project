@@ -55,11 +55,13 @@ if __name__ == '__main__':
     st.set_page_config(layout='wide', page_title='Project Wildfire')  
     st.title('Project Wildfire :fire:')
     st.sidebar.write('Fire detection module')
-    my_upload = st.sidebar.file_uploader('Upload your picture here', type=["png", "jpg", "jpeg"])  
+    my_upload = st.sidebar.file_uploader('Upload your picture here', type=["png", "jpg", "jpeg"])
+    #if st.sidebar.button("Detect"):  
     col1, col2 = st.columns(2)
     if my_upload is not None:
-        with col1:  
-            prediction(my_upload)
-        with col2:
-            gps_data(my_upload)
+        if st.sidebar.button("Detect"):
+            with col1:
+                prediction(my_upload)
+            with col2:
+                gps_data(my_upload)
 

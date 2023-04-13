@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File
+from fastapi.responses import RedirectResponse
 from ultralytics import YOLO
 from PIL import Image
 import io
@@ -6,6 +7,10 @@ import json
 
 app = FastAPI()
 model = YOLO('best.pt')
+
+@app.get("/")
+async def docs_redirect():
+    return RedirectResponse(url='/docs')
 
 @app.post("/predict", tags= ["Detector Endpoint"])
 async def image_pred(file: bytes = File(...)):
