@@ -1,5 +1,8 @@
 # Wildfire Detection Application
 Final project of data fullstack JEDHA's bootcamp
+BLOC 6
+
+[Presentation video](https://share.vidyard.com/watch/he67GRQXPZYmeKi6zXaBwH?)
 
 ## Description
 
