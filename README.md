@@ -85,10 +85,10 @@ We welcome contributions from the community! If you'd like to contribute to this
 
 ## Authors
 
-- [Anas Maghous](https://www.linkedin.com/in/anas-maghous/)
-- [Caroline Mathius](https://www.linkedin.com/in/carolinemathius/)
-- [Simon Picard](https://www.linkedin.com/in/simon-p-64371968/)
-- [Thibaut Longchamps](https://www.linkedin.com/in/thibaut-longchamps-0922525a/)
+- Anas Maghous
+- Caroline Mathius
+- Simon Picard
+- Thibaut Longchamps
 
 ## Acknowledgments
 
