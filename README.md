@@ -4,6 +4,7 @@ BLOC 6
 
 [Presentation video](https://share.vidyard.com/watch/he67GRQXPZYmeKi6zXaBwH?)
 
+[Presentation Google Slides](https://docs.google.com/presentation/d/1BEzhSec0nsHh5EMhR940Tj4NMKqW3aa80Eau7Il9W2o/edit#slide=id.g22d3c9f8f43_0_0)
 ## Description
 
 Wildfire Detection is an application designed to help users identify and report wildfires quickly. Our application uses state-of-the-art computer vision and data analysis techniques to detect fire and smoke in images, providing crucial information to emergency services.
